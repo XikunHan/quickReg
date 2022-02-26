@@ -5,12 +5,21 @@
 \alias{plot_reg}
 \title{plot the result of regression result}
 \usage{
-\method{plot}{reg}(x, limits = c(NA, NA), sort = "order", title = NULL,
-  remove = TRUE, ...)
+\method{plot}{reg}(x, limits = c(NA, NA), sort = "order", title = NULL, remove = TRUE, ...)
 
-plot_reg(x, limits = c(NA, NA), sort = "order", title = NULL,
-  remove = TRUE, term = NULL, center = NULL, low = NULL, high = NULL,
-  model = NULL, ...)
+plot_reg(
+  x,
+  limits = c(NA, NA),
+  sort = "order",
+  title = NULL,
+  remove = TRUE,
+  term = NULL,
+  center = NULL,
+  low = NULL,
+  high = NULL,
+  model = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A reg, reg_y or reg_x object without covariates information, 'cov_show=FALSE'}

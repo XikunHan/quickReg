@@ -4,8 +4,16 @@
 \alias{reg_y}
 \title{Build regression models with more than one dependent variable}
 \usage{
-reg_y(data = NULL, x = NULL, y = NULL, cov = NULL, factors = NULL,
-  model = NULL, time = NULL, cov_show = FALSE)
+reg_y(
+  data = NULL,
+  x = NULL,
+  y = NULL,
+  cov = NULL,
+  factors = NULL,
+  model = NULL,
+  time = NULL,
+  cov_show = FALSE
+)
 }
 \arguments{
 \item{data}{A data.frame}

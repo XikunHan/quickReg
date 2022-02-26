@@ -1,6 +1,6 @@
-#' Display a table used in paper
+#' Display a table
 #'
-#' Display count, frequency or mean, standard deviation and test of normality, etc.
+#' Display count (frequency) or mean (standard deviation) table with the test of normality, etc.
 
 #' @param data A data.frame
 #' @param variables  Column indices or names of the variables in the dataset to display, the default columns are all the variables
@@ -55,7 +55,7 @@ display_table <- function(data = NULL, variables  = NULL,group=NULL, mean_or_med
     if (is.null(variables ))
       variables  = seq_along(1:NCOL(data))
     if (!is.character(variables )) variables <-names(data)[variables ]
-    if(length(group)!=1) stop("`group` is not one length.", call. = FALSE)
+    if(length(group)!=1) stop("`group` is not length == 1.", call. = FALSE)
     if (!is.character(group)) group<-names(data)[group]
 
     data<-filter(data,!is.na(!!sym(group)))
@@ -76,7 +76,6 @@ display_table <- function(data = NULL, variables  = NULL,group=NULL, mean_or_med
 
 
     ## functions used in display
-
 
     format_sprint<-function(x) {
       x<-ifelse(abs(x)<0.005,sprintf(fmt="%.2E",x),sprintf(fmt="%.2f",x))
@@ -321,11 +320,6 @@ display_table_group <- function(data = NULL, variables  = NULL,group=NULL,super_
   return(invisible(result))
 
 }
-
-
-
-
-
 
 
 

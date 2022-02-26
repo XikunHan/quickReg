@@ -1,3 +1,139 @@
-# quickReg
 
-A set of functions to extract results from regression models and plot the effect size using 'ggplot2' seamlessly.
+A manual to show the R package `quickReg`.
+
+## Introduction
+The `quickReg` package provide a set of functions to display and pry a dataset. More precisely, the package can display statistical descriptions for a dataset, build regression models for lm, glm and cox regressions based on specified independent variables. The package also provides several seamless functions to visualize the regression results. Some examples are shown below.
+
+
+## Getting started
+The example data is a toy dataset extracting from package  [PredictABEL](https://link.springer.com/article/10.1007/s10654-011-9567-4) only to be used to demonstrate the main idea of the package.
+
+
+```{r data}
+
+# download it from cran or github
+
+# install.packages("quickReg")
+
+# devtools::install_github("XikunHan/quickReg")
+
+library(quickReg)
+library(ggplot2)
+library(rlang)
+library(dplyr)
+
+# Load the dataset
+
+data(diabetes)
+
+# Show the first 6 rows of the data
+
+head(diabetes)
+
+```
+
+Functions **display_table** or **display_table_group** can be used to show statistical descriptions of the dataset.
+
+```{r display}
+
+display_1<-display_table(data=diabetes,variables=c("age","smoking","education"),group="CFHrs2230199")
+display_1
+
+# sub-group analysis by sex
+display_2<-display_table_group(data=diabetes,variables=c("age","smoking"),group="CFHrs2230199",super_group = "sex")
+display_2
+
+# sub-group analysis by two variables
+display_3<-display_table_group(data=diabetes,variables=c("age","smoking"),group="CFHrs2230199",super_group = c("sex","education"))
+display_3
+
+
+# Sub-group analysis can be a combination
+display_4<-display_table_group(data=diabetes,variables=c("age","smoking"),group="CFHrs2230199",super_group = c("sex","education"),group_combine = TRUE)
+display_4
+
+
+```
+
+
+
+## Build regression models
+
+```{r quickReg}
+
+# Apply univariate regression models
+
+reg_1<-reg_x(data = diabetes, y = 5, factors = c(1, 3, 4), model = 'glm')
+reg_1
+
+# Or survival analysis
+
+reg_2<-reg_x(data = diabetes, x = c(3:4, 6), y ="diabetes",time=2,factors = c(1, 3, 4), model = 'coxph')
+reg_2
+
+# adjusting for covariates
+
+reg_3<-reg_x(data = diabetes, x = c("sex","age"), y ="diabetes" ,cov=c("CFBrs641153","CFHrs2230199"), factors ="sex", model = 'glm',cov_show = TRUE)
+reg_3
+
+
+# regression on several dependent variables
+reg_4<-reg_y(data = diabetes, x = c("sex","age","CFHrs1061170"), y =c("systolic","diastolic","BMI") ,cov=c("CFBrs641153","CFHrs2230199"), factors ="sex", model = 'lm')
+reg_4
+
+# do a subgroup analysis
+
+reg_5<-reg(data = diabetes, x = c("age","CFHrs1061170"), y =c("systolic","diastolic") ,cov=c("CFBrs641153","CFHrs2230199"), model = 'lm',group="sex")
+reg_5
+
+
+# or two subgroup analysis
+reg_6<-reg(data = diabetes, x = c("age","CFHrs1061170"), y =c("systolic","diastolic") ,cov=c("CFBrs641153","CFHrs2230199"), model = 'lm',group=c("sex","smoking"))
+reg_6
+
+
+# or subgroup combination analysis
+reg_7<-reg(data = diabetes, x = c("age","CFHrs1061170"), y =c("systolic","diastolic") ,cov=c("CFBrs641153","CFHrs2230199"), model = 'lm',group=c("sex","smoking"),group_combine = TRUE)
+reg_7
+
+
+```
+
+
+
+
+## Plot these regression models
+
+
+```{r plot,fig.width=8,fig.height=5}
+plot(reg_1)
+
+# if the OR value is very large, we can set a limit
+plot(reg_1,limits=c(NA,3))
+
+
+# Sort the variables alphabetically
+
+plot(reg_1,limits=c(NA,3), sort ="alphabetical")
+
+# Similarly, we can plot several dependent variables result
+
+plot(reg_4)
+
+
+# Subgroup and several dependent variables
+plot(reg_5)+facet_grid(sex~y)
+
+
+
+# modify the plot 
+library(ggplot2);library(ggthemes)
+
+plot(reg_1,limits=c(0.5,2))+
+  labs(list(title = "Regression Model", x = "variables"))+
+  theme_classic() %+replace% 
+  theme(legend.position ="none",axis.text.x=element_text(angle=45,size=rel(1.5)))
+
+```
+
+

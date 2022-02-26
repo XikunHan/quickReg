@@ -1,12 +1,12 @@
-#' A hypothetical dataset
+#' A toy dataset
 #'
-#' A hypothetical dataset extracted from package `PredictABEL`
+#'  A toy dataset extracted from package `PredictABEL`
 #'
 #'
 #' @format A data frame with 1000 rows and 14 variables:
 #' \itemize{
 #'   \item sex: 1=male, 2=female
-#'   \item age: age of the participants(years)
+#'   \item age: age of the participants (years)
 #'   \item smoking: 0=non smoker, 1=smoker
 #'   \item education: 0=without bachelor degree, 1=bachelor degree or above
 #'   \item diabetes: diabetes mellitus, 0= health, 1= diabetes

@@ -3,17 +3,36 @@
 \name{display_table}
 \alias{display_table}
 \alias{display_table_group}
-\title{Display a table used in paper}
+\title{Display a table}
 \usage{
-display_table(data = NULL, variables = NULL, group = NULL,
-  mean_or_median = "mean", addNA = TRUE, table_margin = 2,
-  discrete_limit = 10, exclude_discrete = TRUE, save_to_file = NULL,
-  normtest = NULL, fill_variable = FALSE)
+display_table(
+  data = NULL,
+  variables = NULL,
+  group = NULL,
+  mean_or_median = "mean",
+  addNA = TRUE,
+  table_margin = 2,
+  discrete_limit = 10,
+  exclude_discrete = TRUE,
+  save_to_file = NULL,
+  normtest = NULL,
+  fill_variable = FALSE
+)
 
-display_table_group(data = NULL, variables = NULL, group = NULL,
-  super_group = NULL, group_combine = FALSE, mean_or_median = "mean",
-  addNA = TRUE, table_margin = 2, discrete_limit = 10,
-  exclude_discrete = TRUE, normtest = NULL, fill_variable = FALSE)
+display_table_group(
+  data = NULL,
+  variables = NULL,
+  group = NULL,
+  super_group = NULL,
+  group_combine = FALSE,
+  mean_or_median = "mean",
+  addNA = TRUE,
+  table_margin = 2,
+  discrete_limit = 10,
+  exclude_discrete = TRUE,
+  normtest = NULL,
+  fill_variable = FALSE
+)
 }
 \arguments{
 \item{data}{A data.frame}
@@ -43,7 +62,7 @@ display_table_group(data = NULL, variables = NULL, group = NULL,
 \item{group_combine}{A logical, subgroup analysis for combination of group variables or for each group variables. The default is FALSE (subgroup analysis for each group variable)}
 }
 \description{
-Display count, frequency or mean, standard deviation and test of normality, etc.
+Display count (frequency) or mean (standard deviation) table with the test of normality, etc.
 }
 \section{Functions}{
 \itemize{

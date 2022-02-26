@@ -4,9 +4,18 @@
 \alias{reg}
 \title{Build regression models}
 \usage{
-reg(data = NULL, x = NULL, y = NULL, group = NULL, cov = NULL,
-  factors = NULL, model = NULL, time = NULL, cov_show = FALSE,
-  group_combine = FALSE)
+reg(
+  data = NULL,
+  x = NULL,
+  y = NULL,
+  group = NULL,
+  cov = NULL,
+  factors = NULL,
+  model = NULL,
+  time = NULL,
+  cov_show = FALSE,
+  group_combine = FALSE
+)
 }
 \arguments{
 \item{data}{A data.frame to build the regression model.}

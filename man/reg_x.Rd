@@ -2,11 +2,21 @@
 % Please edit documentation in R/reg_x.R
 \name{reg_x}
 \alias{reg_x}
-\title{Build regression models only one dependent variable}
+\title{Build regression models with only one dependent variable}
 \usage{
-reg_x(data = NULL, x = NULL, y = NULL, cov = NULL, factors = NULL,
-  model = NULL, time = NULL, cov_show = FALSE, detail_show = FALSE,
-  confint_glm = "default", save_to_file = NULL)
+reg_x(
+  data = NULL,
+  x = NULL,
+  y = NULL,
+  cov = NULL,
+  factors = NULL,
+  model = NULL,
+  time = NULL,
+  cov_show = FALSE,
+  detail_show = FALSE,
+  confint_glm = "default",
+  save_to_file = NULL
+)
 }
 \arguments{
 \item{data}{A data.frame to build the regression model.}

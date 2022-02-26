@@ -1,4 +1,4 @@
-#' Build regression models only one dependent variable
+#' Build regression models with only one dependent variable
 #'
 #' Build general linear model, generalized linear model, cox regression model with only one dependent variables.
 
