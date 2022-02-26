@@ -157,7 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;quickReg&quot;)</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;XikunHan/quickReg&quot;)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;XikunHan/quickReg&quot;, build_vignettes = TRUE)</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quickReg)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -180,65 +180,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the first 6 rows of the data</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diabetes)</span></code></pre></div>
-<pre><code>##   sex age smoking education diabetes BMI systolic diastolic CFHrs1061170 LOCrs10490924 CFHrs1410996 C2rs9332739 CFBrs641153 CFHrs2230199
-## 1   1  44       1         0        1  40      129        91            1             2            2           1           1            0
-## 2   0  53       0         0        0  29      137        98            2             1            1           1           0            0
-## 3   1  46       1         0        0  29      136        93            1             1            2           1           1            1
-## 4   1  63       0         0        0  29      176       119            1             0            1           1           0            0
-## 5   0  60      NA         0        1  30      148       107            1             2            1           1           0            2
-## 6   0  52       0         1        1  29      133        91            1             1            1           1           1            0</code></pre>
+<pre><code>##   sex age smoking education diabetes BMI systolic diastolic CFHrs1061170
+## 1   1  44       1         0        1  40      129        91            1
+## 2   0  53       0         0        0  29      137        98            2
+## 3   1  46       1         0        0  29      136        93            1
+## 4   1  63       0         0        0  29      176       119            1
+## 5   0  60      NA         0        1  30      148       107            1
+## 6   0  52       0         1        1  29      133        91            1
+##   LOCrs10490924 CFHrs1410996 C2rs9332739 CFBrs641153 CFHrs2230199
+## 1             2            2           1           1            0
+## 2             1            1           1           0            0
+## 3             1            2           1           1            1
+## 4             0            1           1           0            0
+## 5             2            1           1           0            2
+## 6             1            1           1           1            0</code></pre>
 <p>Functions <strong>display_table</strong> or <strong>display_table_group</strong> can be used to show statistical descriptions of the dataset.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>display_1<span class="ot">&lt;-</span><span class="fu">display_table</span>(<span class="at">data=</span>diabetes,<span class="at">variables=</span><span class="fu">c</span>(<span class="st">&quot;age&quot;</span>,<span class="st">&quot;smoking&quot;</span>,<span class="st">&quot;education&quot;</span>),<span class="at">group=</span><span class="st">&quot;CFHrs2230199&quot;</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>display_1</span></code></pre></div>
-<pre><code>##    variable      level     All sample CFHrs2230199 = 0 CFHrs2230199 = 1 CFHrs2230199 = 2 P.value1 P.value2                normality
-## 1       age mean +- sd 58.98 +- 13.27   59.23 +- 13.36   58.34 +- 13.14   60.59 +- 13.16     0.36     0.47 6.45E-08; 3.01E-05; 0.24
-## 2                   NA              0                0                0                0                                           
-## 3   smoking          0   455 (49.14%)     259 (49.81%)      166 (48.4%)      30 (47.62%)     0.89     &lt;NA&gt;                         
-## 4                    1   471 (50.86%)     261 (50.19%)      177 (51.6%)      33 (52.38%)                                           
-## 5                   NA             74               38               33                3                                           
-## 6 education          0    661 (66.1%)     370 (66.31%)     248 (65.96%)      43 (65.15%)     0.98     &lt;NA&gt;                         
-## 7                    1    339 (33.9%)     188 (33.69%)     128 (34.04%)      23 (34.85%)                                           
-## 8                   NA              0                0                0                0</code></pre>
+<pre><code>##    variable      level     All sample CFHrs2230199 = 0 CFHrs2230199 = 1
+## 1       age mean +- sd 58.98 +- 13.27   59.23 +- 13.36   58.34 +- 13.14
+## 2                   NA              0                0                0
+## 3   smoking          0   455 (49.14%)     259 (49.81%)      166 (48.4%)
+## 4                    1   471 (50.86%)     261 (50.19%)      177 (51.6%)
+## 5                   NA             74               38               33
+## 6 education          0    661 (66.1%)     370 (66.31%)     248 (65.96%)
+## 7                    1    339 (33.9%)     188 (33.69%)     128 (34.04%)
+## 8                   NA              0                0                0
+##   CFHrs2230199 = 2 P.value1 P.value2                normality
+## 1   60.59 +- 13.16     0.36     0.47 6.45E-08; 3.01E-05; 0.24
+## 2                0                                           
+## 3      30 (47.62%)     0.89     &lt;NA&gt;                         
+## 4      33 (52.38%)                                           
+## 5                3                                           
+## 6      43 (65.15%)     0.98     &lt;NA&gt;                         
+## 7      23 (34.85%)                                           
+## 8                0</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sub-group analysis by sex</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>display_2<span class="ot">&lt;-</span><span class="fu">display_table_group</span>(<span class="at">data=</span>diabetes,<span class="at">variables=</span><span class="fu">c</span>(<span class="st">&quot;age&quot;</span>,<span class="st">&quot;smoking&quot;</span>),<span class="at">group=</span><span class="st">&quot;CFHrs2230199&quot;</span>,<span class="at">super_group =</span> <span class="st">&quot;sex&quot;</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>display_2</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 10
-##      sex variable  level      `All sample`   `CFHrs2230199 = 0` `CFHrs2230199 = 1` `CFHrs2230199 = 2` P.value1 P.value2 normality                 
-##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                     
-##  1     0 &quot;age&quot;     mean +- sd 59.22 +- 13.72 59.94 +- 14.09     58.52 +- 13.38     57.54 +- 12.53     &quot;0.36&quot;   &quot;0.40&quot;   &quot;2.71E-05; 1.59E-03; 0.08&quot;
-##  2     0 &quot;&quot;        NA         0              0                  0                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;                        
-##  3     0 &quot;smoking&quot; 0          259 (49.05%)   142 (48.63%)       100 (50.51%)       17 (44.74%)        &quot;0.79&quot;    &lt;NA&gt;    &quot;&quot;                        
-##  4     0 &quot;&quot;        1          269 (50.95%)   150 (51.37%)       98 (49.49%)        21 (55.26%)        &quot;&quot;       &quot;&quot;       &quot;&quot;                        
-##  5     0 &quot;&quot;        NA         44             20                 21                 3                  &quot;&quot;       &quot;&quot;       &quot;&quot;                        
-##  6     1 &quot;age&quot;     mean +- sd 58.66 +- 12.65 58.33 +- 12.34     58.08 +- 12.84     65.60 +- 12.86     &quot;0.02&quot;   &quot;0.02&quot;   &quot;3.56E-04; 0.01; 0.95&quot;    
-##  7     1 &quot;&quot;        NA         0              0                  0                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;                        
-##  8     1 &quot;smoking&quot; 0          196 (49.25%)   117 (51.32%)       66 (45.52%)        13 (52%)           &quot;0.53&quot;    &lt;NA&gt;    &quot;&quot;                        
-##  9     1 &quot;&quot;        1          202 (50.75%)   111 (48.68%)       79 (54.48%)        12 (48%)           &quot;&quot;       &quot;&quot;       &quot;&quot;                        
-## 10     1 &quot;&quot;        NA         30             18                 12                 0                  &quot;&quot;       &quot;&quot;       &quot;&quot;</code></pre>
+##      sex variable  level      `All sample`   `CFHrs2230199 = 0` `CFHrs2230199 …`
+##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;           
+##  1     0 &quot;age&quot;     mean +- sd 59.22 +- 13.72 59.94 +- 14.09     58.52 +- 13.38  
+##  2     0 &quot;&quot;        NA         0              0                  0               
+##  3     0 &quot;smoking&quot; 0          259 (49.05%)   142 (48.63%)       100 (50.51%)    
+##  4     0 &quot;&quot;        1          269 (50.95%)   150 (51.37%)       98 (49.49%)     
+##  5     0 &quot;&quot;        NA         44             20                 21              
+##  6     1 &quot;age&quot;     mean +- sd 58.66 +- 12.65 58.33 +- 12.34     58.08 +- 12.84  
+##  7     1 &quot;&quot;        NA         0              0                  0               
+##  8     1 &quot;smoking&quot; 0          196 (49.25%)   117 (51.32%)       66 (45.52%)     
+##  9     1 &quot;&quot;        1          202 (50.75%)   111 (48.68%)       79 (54.48%)     
+## 10     1 &quot;&quot;        NA         30             18                 12              
+## # … with 4 more variables: `CFHrs2230199 = 2` &lt;chr&gt;, P.value1 &lt;chr&gt;,
+## #   P.value2 &lt;chr&gt;, normality &lt;chr&gt;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sub-group analysis by two variables</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>display_3<span class="ot">&lt;-</span><span class="fu">display_table_group</span>(<span class="at">data=</span>diabetes,<span class="at">variables=</span><span class="fu">c</span>(<span class="st">&quot;age&quot;</span>,<span class="st">&quot;smoking&quot;</span>),<span class="at">group=</span><span class="st">&quot;CFHrs2230199&quot;</span>,<span class="at">super_group =</span> <span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>,<span class="st">&quot;education&quot;</span>))</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>display_3</span></code></pre></div>
-<pre><code>##    super_group super_group_level variable      level     All sample CFHrs2230199 = 0 CFHrs2230199 = 1 CFHrs2230199 = 2 P.value1 P.value2
-## 1          sex                 0      age mean +- sd 59.22 +- 13.72   59.94 +- 14.09   58.52 +- 13.38   57.54 +- 12.53     0.36     0.40
-## 2          sex                 0                  NA              0                0                0                0                  
-## 3          sex                 0  smoking          0   259 (49.05%)     142 (48.63%)     100 (50.51%)      17 (44.74%)     0.79     &lt;NA&gt;
-## 4          sex                 0                   1   269 (50.95%)     150 (51.37%)      98 (49.49%)      21 (55.26%)                  
-## 5          sex                 0                  NA             44               20               21                3                  
-## 6          sex                 1      age mean +- sd 58.66 +- 12.65   58.33 +- 12.34   58.08 +- 12.84   65.60 +- 12.86     0.02     0.02
-## 7          sex                 1                  NA              0                0                0                0                  
-## 8          sex                 1  smoking          0   196 (49.25%)     117 (51.32%)      66 (45.52%)         13 (52%)     0.53     &lt;NA&gt;
-## 9          sex                 1                   1   202 (50.75%)     111 (48.68%)      79 (54.48%)         12 (48%)                  
-## 10         sex                 1                  NA             30               18               12                0                  
-## 11   education                 0      age mean +- sd 58.68 +- 12.98   59.15 +- 12.95   57.73 +- 12.95   60.09 +- 13.36     0.31     0.49
-## 12   education                 0                  NA              0                0                0                0                  
-## 13   education                 0  smoking          0   307 (49.68%)     166 (47.56%)     126 (55.26%)      15 (36.59%)     0.04     &lt;NA&gt;
-## 14   education                 0                   1   311 (50.32%)     183 (52.44%)     102 (44.74%)      26 (63.41%)                  
-## 15   education                 0                  NA             43               21               20                2                  
-## 16   education                 1      age mean +- sd 59.57 +- 13.81   59.37 +- 14.17   59.52 +- 13.48   61.52 +- 13.02     0.78     0.72
-## 17   education                 1                  NA              0                0                0                0                  
-## 18   education                 1  smoking          0   148 (48.05%)      93 (54.39%)      40 (34.78%)      15 (68.18%) 7.35E-04     &lt;NA&gt;
-## 19   education                 1                   1   160 (51.95%)      78 (45.61%)      75 (65.22%)       7 (31.82%)                  
-## 20   education                 1                  NA             31               17               13                1                  
+<pre><code>##    super_group super_group_level variable      level     All sample
+## 1          sex                 0      age mean +- sd 59.22 +- 13.72
+## 2          sex                 0                  NA              0
+## 3          sex                 0  smoking          0   259 (49.05%)
+## 4          sex                 0                   1   269 (50.95%)
+## 5          sex                 0                  NA             44
+## 6          sex                 1      age mean +- sd 58.66 +- 12.65
+## 7          sex                 1                  NA              0
+## 8          sex                 1  smoking          0   196 (49.25%)
+## 9          sex                 1                   1   202 (50.75%)
+## 10         sex                 1                  NA             30
+## 11   education                 0      age mean +- sd 58.68 +- 12.98
+## 12   education                 0                  NA              0
+## 13   education                 0  smoking          0   307 (49.68%)
+## 14   education                 0                   1   311 (50.32%)
+## 15   education                 0                  NA             43
+## 16   education                 1      age mean +- sd 59.57 +- 13.81
+## 17   education                 1                  NA              0
+## 18   education                 1  smoking          0   148 (48.05%)
+## 19   education                 1                   1   160 (51.95%)
+## 20   education                 1                  NA             31
+##    CFHrs2230199 = 0 CFHrs2230199 = 1 CFHrs2230199 = 2 P.value1 P.value2
+## 1    59.94 +- 14.09   58.52 +- 13.38   57.54 +- 12.53     0.36     0.40
+## 2                 0                0                0                  
+## 3      142 (48.63%)     100 (50.51%)      17 (44.74%)     0.79     &lt;NA&gt;
+## 4      150 (51.37%)      98 (49.49%)      21 (55.26%)                  
+## 5                20               21                3                  
+## 6    58.33 +- 12.34   58.08 +- 12.84   65.60 +- 12.86     0.02     0.02
+## 7                 0                0                0                  
+## 8      117 (51.32%)      66 (45.52%)         13 (52%)     0.53     &lt;NA&gt;
+## 9      111 (48.68%)      79 (54.48%)         12 (48%)                  
+## 10               18               12                0                  
+## 11   59.15 +- 12.95   57.73 +- 12.95   60.09 +- 13.36     0.31     0.49
+## 12                0                0                0                  
+## 13     166 (47.56%)     126 (55.26%)      15 (36.59%)     0.04     &lt;NA&gt;
+## 14     183 (52.44%)     102 (44.74%)      26 (63.41%)                  
+## 15               21               20                2                  
+## 16   59.37 +- 14.17   59.52 +- 13.48   61.52 +- 13.02     0.78     0.72
+## 17                0                0                0                  
+## 18      93 (54.39%)      40 (34.78%)      15 (68.18%) 7.35E-04     &lt;NA&gt;
+## 19      78 (45.61%)      75 (65.22%)       7 (31.82%)                  
+## 20               17               13                1                  
 ##                   normality
 ## 1  2.71E-05; 1.59E-03; 0.08
 ## 2                          
@@ -264,28 +303,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>display_4<span class="ot">&lt;-</span><span class="fu">display_table_group</span>(<span class="at">data=</span>diabetes,<span class="at">variables=</span><span class="fu">c</span>(<span class="st">&quot;age&quot;</span>,<span class="st">&quot;smoking&quot;</span>),<span class="at">group=</span><span class="st">&quot;CFHrs2230199&quot;</span>,<span class="at">super_group =</span> <span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>,<span class="st">&quot;education&quot;</span>),<span class="at">group_combine =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>display_4</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 11
-##      sex education variable  level      `All sample`   `CFHrs2230199 = 0` `CFHrs2230199 = 1` `CFHrs2230199 = 2` P.value1 P.value2 normality           
-##    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;               
-##  1     0         0 &quot;age&quot;     mean +- sd 59.15 +- 13.47 60.08 +- 13.66     58.03 +- 13.20     58.52 +- 13.54     &quot;0.35&quot;   &quot;0.40&quot;   &quot;8.20E-04; 0.01; 0.…
-##  2     0         0 &quot;&quot;        NA         0              0                  0                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-##  3     0         0 &quot;smoking&quot; 0          181 (49.86%)   91 (46.91%)        81 (57.04%)        9 (33.33%)         &quot;0.04&quot;    &lt;NA&gt;    &quot;&quot;                  
-##  4     0         0 &quot;&quot;        1          182 (50.14%)   103 (53.09%)       61 (42.96%)        18 (66.67%)        &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-##  5     0         0 &quot;&quot;        NA         28             13                 13                 2                  &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-##  6     0         1 &quot;age&quot;     mean +- sd 59.38 +- 14.28 59.66 +- 14.99     59.72 +- 13.84     55.17 +- 9.77      &quot;0.57&quot;   &quot;0.63&quot;   &quot;0.01; 0.07; 0.89&quot;  
-##  7     0         1 &quot;&quot;        NA         0              0                  0                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-##  8     0         1 &quot;smoking&quot; 0          78 (47.27%)    51 (52.04%)        19 (33.93%)        8 (72.73%)         &quot;0.02&quot;    &lt;NA&gt;    &quot;&quot;                  
-##  9     0         1 &quot;&quot;        1          87 (52.73%)    47 (47.96%)        37 (66.07%)        3 (27.27%)         &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-## 10     0         1 &quot;&quot;        NA         16             7                  8                  1                  &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-## 11     1         0 &quot;age&quot;     mean +- sd 58.00 +- 12.23 57.98 +- 11.94     57.24 +- 12.58     63.36 +- 12.83     &quot;0.22&quot;   &quot;0.25&quot;   &quot;0.01; 0.01; 0.94&quot;  
-## 12     1         0 &quot;&quot;        NA         0              0                  0                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-## 13     1         0 &quot;smoking&quot; 0          126 (49.41%)   75 (48.39%)        45 (52.33%)        6 (42.86%)         &quot;0.74&quot;    &lt;NA&gt;    &quot;&quot;                  
-## 14     1         0 &quot;&quot;        1          129 (50.59%)   80 (51.61%)        41 (47.67%)        8 (57.14%)         &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-## 15     1         0 &quot;&quot;        NA         15             8                  7                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-## 16     1         1 &quot;age&quot;     mean +- sd 59.79 +- 13.29 59.01 +- 13.15     59.31 +- 13.22     68.45 +- 12.92     &quot;0.08&quot;   &quot;0.08&quot;   &quot;0.04; 0.04; 0.92&quot;  
-## 17     1         1 &quot;&quot;        NA         0              0                  0                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-## 18     1         1 &quot;smoking&quot; 0          70 (48.95%)    42 (57.53%)        21 (35.59%)        7 (63.64%)         &quot;0.03&quot;    &lt;NA&gt;    &quot;&quot;                  
-## 19     1         1 &quot;&quot;        1          73 (51.05%)    31 (42.47%)        38 (64.41%)        4 (36.36%)         &quot;&quot;       &quot;&quot;       &quot;&quot;                  
-## 20     1         1 &quot;&quot;        NA         15             10                 5                  0                  &quot;&quot;       &quot;&quot;       &quot;&quot;</code></pre>
+##      sex education variable level `All sample` `CFHrs2230199 …` `CFHrs2230199 …`
+##    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;           
+##  1     0         0 &quot;age&quot;    mean… 59.15 +- 13… 60.08 +- 13.66   58.03 +- 13.20  
+##  2     0         0 &quot;&quot;       NA    0            0                0               
+##  3     0         0 &quot;smokin… 0     181 (49.86%) 91 (46.91%)      81 (57.04%)     
+##  4     0         0 &quot;&quot;       1     182 (50.14%) 103 (53.09%)     61 (42.96%)     
+##  5     0         0 &quot;&quot;       NA    28           13               13              
+##  6     0         1 &quot;age&quot;    mean… 59.38 +- 14… 59.66 +- 14.99   59.72 +- 13.84  
+##  7     0         1 &quot;&quot;       NA    0            0                0               
+##  8     0         1 &quot;smokin… 0     78 (47.27%)  51 (52.04%)      19 (33.93%)     
+##  9     0         1 &quot;&quot;       1     87 (52.73%)  47 (47.96%)      37 (66.07%)     
+## 10     0         1 &quot;&quot;       NA    16           7                8               
+## 11     1         0 &quot;age&quot;    mean… 58.00 +- 12… 57.98 +- 11.94   57.24 +- 12.58  
+## 12     1         0 &quot;&quot;       NA    0            0                0               
+## 13     1         0 &quot;smokin… 0     126 (49.41%) 75 (48.39%)      45 (52.33%)     
+## 14     1         0 &quot;&quot;       1     129 (50.59%) 80 (51.61%)      41 (47.67%)     
+## 15     1         0 &quot;&quot;       NA    15           8                7               
+## 16     1         1 &quot;age&quot;    mean… 59.79 +- 13… 59.01 +- 13.15   59.31 +- 13.22  
+## 17     1         1 &quot;&quot;       NA    0            0                0               
+## 18     1         1 &quot;smokin… 0     70 (48.95%)  42 (57.53%)      21 (35.59%)     
+## 19     1         1 &quot;&quot;       1     73 (51.05%)  31 (42.47%)      38 (64.41%)     
+## 20     1         1 &quot;&quot;       NA    15           10               5               
+## # … with 4 more variables: `CFHrs2230199 = 2` &lt;chr&gt;, P.value1 &lt;chr&gt;,
+## #   P.value2 &lt;chr&gt;, normality &lt;chr&gt;</code></pre>
 </div>
 <div id="build-regression-models" class="section level2">
 <h2>Build regression models</h2>
@@ -293,121 +334,166 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>reg_1<span class="ot">&lt;-</span><span class="fu">reg_x</span>(<span class="at">data =</span> diabetes, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">factors =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">model =</span> <span class="st">&#39;glm&#39;</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>reg_1</span></code></pre></div>
-<pre><code>##                x          term      estimate   std.error   statistic      p.value        OR    OR.low  OR.high    N
-## 1            sex         sex_1 -0.0995619364 0.163419266 -0.60924234 5.423638e-01 0.9052339 0.6571403 1.246992 1000
-## 2            age           age -0.0016515166 0.006083056 -0.27149453 7.860107e-01 0.9983498 0.9865176 1.010324 1000
-## 3        smoking     smoking_1  0.2203884367 0.171356638  1.28613889 1.983946e-01 1.2465608 0.8909523 1.744105  926
-## 4      education   education_1  0.0072440035 0.169823173  0.04265615 9.659756e-01 1.0072703 0.7220916 1.405076 1000
-## 5            BMI           BMI -0.0205541093 0.021530295 -0.95465990 3.397497e-01 0.9796557 0.9391757 1.021880  994
-## 6       systolic      systolic -0.0001758354 0.004399858 -0.03996388 9.681219e-01 0.9998242 0.9912392 1.008484  995
-## 7      diastolic     diastolic -0.0010196342 0.007323325 -0.13923104 8.892676e-01 0.9989809 0.9847445 1.013423  995
-## 8   CFHrs1061170  CFHrs1061170  0.1648181445 0.108731134  1.51583211 1.295618e-01 1.1791787 0.9528565 1.459257 1000
-## 9  LOCrs10490924 LOCrs10490924  0.6243454613 0.112922906  5.52895320 3.221473e-08 1.8670235 1.4963378 2.329539 1000
-## 10  CFHrs1410996  CFHrs1410996  0.3154310240 0.128347280  2.45763699 1.398545e-02 1.3708501 1.0659591 1.762947 1000
-## 11   C2rs9332739   C2rs9332739  1.0717936770 0.433256076  2.47381107 1.336804e-02 2.9206134 1.2493549 6.827510 1000
-## 12   CFBrs641153   CFBrs641153  0.1993582016 0.253688461  0.78583866 4.319620e-01 1.2206191 0.7424038 2.006874 1000
-## 13  CFHrs2230199  CFHrs2230199  0.3402726917 0.125293121  2.71581303 6.611324e-03 1.4053308 1.0993320 1.796504 1000</code></pre>
+<pre><code>##                x          term      estimate   std.error   statistic
+## 1            sex         sex_1 -0.0995619364 0.163419266 -0.60924234
+## 2            age           age -0.0016515166 0.006083056 -0.27149453
+## 3        smoking     smoking_1  0.2203884367 0.171356638  1.28613889
+## 4      education   education_1  0.0072440035 0.169823173  0.04265615
+## 5            BMI           BMI -0.0205541093 0.021530295 -0.95465990
+## 6       systolic      systolic -0.0001758354 0.004399858 -0.03996388
+## 7      diastolic     diastolic -0.0010196342 0.007323325 -0.13923104
+## 8   CFHrs1061170  CFHrs1061170  0.1648181445 0.108731134  1.51583211
+## 9  LOCrs10490924 LOCrs10490924  0.6243454613 0.112922906  5.52895320
+## 10  CFHrs1410996  CFHrs1410996  0.3154310240 0.128347280  2.45763699
+## 11   C2rs9332739   C2rs9332739  1.0717936770 0.433256076  2.47381107
+## 12   CFBrs641153   CFBrs641153  0.1993582016 0.253688461  0.78583866
+## 13  CFHrs2230199  CFHrs2230199  0.3402726917 0.125293121  2.71581303
+##         p.value        OR    OR.low  OR.high    N
+## 1  5.423638e-01 0.9052339 0.6571403 1.246992 1000
+## 2  7.860107e-01 0.9983498 0.9865176 1.010324 1000
+## 3  1.983946e-01 1.2465608 0.8909523 1.744105  926
+## 4  9.659756e-01 1.0072703 0.7220916 1.405076 1000
+## 5  3.397497e-01 0.9796557 0.9391757 1.021880  994
+## 6  9.681219e-01 0.9998242 0.9912392 1.008484  995
+## 7  8.892676e-01 0.9989809 0.9847445 1.013423  995
+## 8  1.295618e-01 1.1791787 0.9528565 1.459257 1000
+## 9  3.221473e-08 1.8670235 1.4963378 2.329539 1000
+## 10 1.398545e-02 1.3708501 1.0659591 1.762947 1000
+## 11 1.336804e-02 2.9206134 1.2493549 6.827510 1000
+## 12 4.319620e-01 1.2206191 0.7424038 2.006874 1000
+## 13 6.611324e-03 1.4053308 1.0993320 1.796504 1000</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or survival analysis</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>reg_2<span class="ot">&lt;-</span><span class="fu">reg_x</span>(<span class="at">data =</span> diabetes, <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">6</span>), <span class="at">y =</span><span class="st">&quot;diabetes&quot;</span>,<span class="at">time=</span><span class="dv">2</span>,<span class="at">factors =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">model =</span> <span class="st">&#39;coxph&#39;</span>)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>reg_2</span></code></pre></div>
-<pre><code>##           x        term    estimate  std.error  statistic     p.value        HR    HR.low   HR.high    N
-## 1   smoking   smoking_1  0.17247504 0.15526447  1.1108468 0.266634305 1.1882422 0.8764832 1.6108916  926
-## 2 education education_1 -0.06871785 0.15313905 -0.4487285 0.653627559 0.9335901 0.6915188 1.2604001 1000
-## 3       BMI         BMI -0.05564539 0.02111973 -2.6347584 0.008419718 0.9458745 0.9075203 0.9858496  994</code></pre>
+<pre><code>##           x        term    estimate  std.error  statistic     p.value        HR
+## 1   smoking   smoking_1  0.17247504 0.15526447  1.1108468 0.266634305 1.1882422
+## 2 education education_1 -0.06871785 0.15313905 -0.4487285 0.653627559 0.9335901
+## 3       BMI         BMI -0.05564539 0.02111973 -2.6347584 0.008419718 0.9458745
+##      HR.low   HR.high    N
+## 1 0.8764832 1.6108916  926
+## 2 0.6915188 1.2604001 1000
+## 3 0.9075203 0.9858496  994</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusting for covariates</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>reg_3<span class="ot">&lt;-</span><span class="fu">reg_x</span>(<span class="at">data =</span> diabetes, <span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>,<span class="st">&quot;age&quot;</span>), <span class="at">y =</span><span class="st">&quot;diabetes&quot;</span> ,<span class="at">cov=</span><span class="fu">c</span>(<span class="st">&quot;CFBrs641153&quot;</span>,<span class="st">&quot;CFHrs2230199&quot;</span>), <span class="at">factors =</span><span class="st">&quot;sex&quot;</span>, <span class="at">model =</span> <span class="st">&#39;glm&#39;</span>,<span class="at">cov_show =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>reg_3</span></code></pre></div>
-<pre><code>##     x         term     estimate   std.error  statistic     p.value        OR    OR.low  OR.high    N
-## 2 sex        sex_1 -0.095195435 0.164518306 -0.5786313 0.562838007 0.9091952 0.6585957 1.255149 1000
-## 3 sex  CFBrs641153  0.230790886 0.255559041  0.9030825 0.366482136 1.2595958 0.7633065 2.078564 1000
-## 4 sex CFHrs2230199  0.342102415 0.125633639  2.7230160 0.006468892 1.4079045 1.1006105 1.800996 1000
-## 6 age          age -0.001887778 0.006114376 -0.3087442 0.757516121 0.9981140 0.9862240 1.010147 1000
-## 7 age  CFBrs641153  0.224355970 0.255129981  0.8793791 0.379195768 1.2515164 0.7590485 2.063496 1000
-## 8 age CFHrs2230199  0.344428164 0.125604894  2.7421556 0.006103742 1.4111827 1.1032354 1.805088 1000</code></pre>
+<pre><code>##     x         term     estimate   std.error  statistic     p.value        OR
+## 2 sex        sex_1 -0.095195435 0.164518306 -0.5786313 0.562838007 0.9091952
+## 3 sex  CFBrs641153  0.230790886 0.255559041  0.9030825 0.366482136 1.2595958
+## 4 sex CFHrs2230199  0.342102415 0.125633639  2.7230160 0.006468892 1.4079045
+## 6 age          age -0.001887778 0.006114376 -0.3087442 0.757516121 0.9981140
+## 7 age  CFBrs641153  0.224355970 0.255129981  0.8793791 0.379195768 1.2515164
+## 8 age CFHrs2230199  0.344428164 0.125604894  2.7421556 0.006103742 1.4111827
+##      OR.low  OR.high    N
+## 2 0.6585957 1.255149 1000
+## 3 0.7633065 2.078564 1000
+## 4 1.1006105 1.800996 1000
+## 6 0.9862240 1.010147 1000
+## 7 0.7590485 2.063496 1000
+## 8 1.1032354 1.805088 1000</code></pre>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regression on several dependent variables</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>reg_4<span class="ot">&lt;-</span><span class="fu">reg_y</span>(<span class="at">data =</span> diabetes, <span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>,<span class="st">&quot;age&quot;</span>,<span class="st">&quot;CFHrs1061170&quot;</span>), <span class="at">y =</span><span class="fu">c</span>(<span class="st">&quot;systolic&quot;</span>,<span class="st">&quot;diastolic&quot;</span>,<span class="st">&quot;BMI&quot;</span>) ,<span class="at">cov=</span><span class="fu">c</span>(<span class="st">&quot;CFBrs641153&quot;</span>,<span class="st">&quot;CFHrs2230199&quot;</span>), <span class="at">factors =</span><span class="st">&quot;sex&quot;</span>, <span class="at">model =</span> <span class="st">&#39;lm&#39;</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>reg_4</span></code></pre></div>
-<pre><code>##           y            x         term    estimate   std.error  statistic      p.value        coef    coef.low   coef.high   N
-## 1  systolic          sex        sex_1 -2.69428330 1.177660308 -2.2878272 2.235750e-02 -2.69428330 -5.00527758 -0.38328902 995
-## 2  systolic          age          age  0.62409179 0.039210814 15.9163181 5.778111e-51  0.62409179  0.54714603  0.70103755 995
-## 3  systolic CFHrs1061170 CFHrs1061170  0.49087994 0.783066116  0.6268691 5.308894e-01  0.49087994 -1.04577821  2.02753809 995
-## 4 diastolic          sex        sex_1 -1.73296131 0.708148117 -2.4471735 1.457089e-02 -1.73296131 -3.12260333 -0.34331929 995
-## 5 diastolic          age          age  0.15343916 0.025977166  5.9066936 4.793066e-09  0.15343916  0.10246259  0.20441573 995
-## 6 diastolic CFHrs1061170 CFHrs1061170 -0.30611928 0.471042899 -0.6498756 5.159232e-01 -0.30611928 -1.23047534  0.61823679 995
-## 7       BMI          sex        sex_1 -0.39143773 0.243573523 -1.6070619 1.083597e-01 -0.39143773 -0.86941742  0.08654197 994
-## 8       BMI          age          age  0.05159255 0.008939646  5.7712071 1.052213e-08  0.05159255  0.03404972  0.06913538 994
-## 9       BMI CFHrs1061170 CFHrs1061170 -0.10033051 0.161718714 -0.6204013 5.351364e-01 -0.10033051 -0.41768134  0.21702033 994</code></pre>
+<pre><code>##           y            x         term    estimate   std.error  statistic
+## 1  systolic          sex        sex_1 -2.69428330 1.177660308 -2.2878272
+## 2  systolic          age          age  0.62409179 0.039210814 15.9163181
+## 3  systolic CFHrs1061170 CFHrs1061170  0.49087994 0.783066116  0.6268691
+## 4 diastolic          sex        sex_1 -1.73296131 0.708148117 -2.4471735
+## 5 diastolic          age          age  0.15343916 0.025977166  5.9066936
+## 6 diastolic CFHrs1061170 CFHrs1061170 -0.30611928 0.471042899 -0.6498756
+## 7       BMI          sex        sex_1 -0.39143773 0.243573523 -1.6070619
+## 8       BMI          age          age  0.05159255 0.008939646  5.7712071
+## 9       BMI CFHrs1061170 CFHrs1061170 -0.10033051 0.161718714 -0.6204013
+##        p.value        coef    coef.low   coef.high   N
+## 1 2.235750e-02 -2.69428330 -5.00527758 -0.38328902 995
+## 2 5.778111e-51  0.62409179  0.54714603  0.70103755 995
+## 3 5.308894e-01  0.49087994 -1.04577821  2.02753809 995
+## 4 1.457089e-02 -1.73296131 -3.12260333 -0.34331929 995
+## 5 4.793066e-09  0.15343916  0.10246259  0.20441573 995
+## 6 5.159232e-01 -0.30611928 -1.23047534  0.61823679 995
+## 7 1.083597e-01 -0.39143773 -0.86941742  0.08654197 994
+## 8 1.052213e-08  0.05159255  0.03404972  0.06913538 994
+## 9 5.351364e-01 -0.10033051 -0.41768134  0.21702033 994</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># do a subgroup analysis</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>reg_5<span class="ot">&lt;-</span><span class="fu">reg</span>(<span class="at">data =</span> diabetes, <span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>,<span class="st">&quot;CFHrs1061170&quot;</span>), <span class="at">y =</span><span class="fu">c</span>(<span class="st">&quot;systolic&quot;</span>,<span class="st">&quot;diastolic&quot;</span>) ,<span class="at">cov=</span><span class="fu">c</span>(<span class="st">&quot;CFBrs641153&quot;</span>,<span class="st">&quot;CFHrs2230199&quot;</span>), <span class="at">model =</span> <span class="st">&#39;lm&#39;</span>,<span class="at">group=</span><span class="st">&quot;sex&quot;</span>)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>reg_5</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 12
-##     sex y         x            term         estimate std.error statistic  p.value   coef coef.low coef.high     N
-##   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1     0 systolic  age          age             0.648    0.0508    12.8   6.06e-33  0.648   0.548      0.747   569
-## 2     0 systolic  CFHrs1061170 CFHrs1061170    1.14     1.06       1.08  2.80e- 1  1.14   -0.933      3.22    569
-## 3     0 diastolic age          age             0.130    0.0336     3.88  1.15e- 4  0.130   0.0644     0.196   569
-## 4     0 diastolic CFHrs1061170 CFHrs1061170    0.229    0.625      0.366 7.14e- 1  0.229  -0.998      1.46    569
-## 5     1 systolic  age          age             0.593    0.0618     9.60  7.31e-20  0.593   0.472      0.715   426
-## 6     1 systolic  CFHrs1061170 CFHrs1061170   -0.465    1.16      -0.402 6.88e- 1 -0.465  -2.74       1.81    426
-## 7     1 diastolic age          age             0.194    0.0410     4.73  3.13e- 6  0.194   0.113      0.274   426
-## 8     1 diastolic CFHrs1061170 CFHrs1061170   -1.09     0.711     -1.53  1.26e- 1 -1.09   -2.49       0.308   426</code></pre>
+##     sex y      x     term  estimate std.error statistic  p.value   coef coef.low
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+## 1     0 systo… age   age      0.648    0.0508    12.8   6.06e-33  0.648   0.548 
+## 2     0 systo… CFHr… CFHr…    1.14     1.06       1.08  2.80e- 1  1.14   -0.933 
+## 3     0 diast… age   age      0.130    0.0336     3.88  1.15e- 4  0.130   0.0644
+## 4     0 diast… CFHr… CFHr…    0.229    0.625      0.366 7.14e- 1  0.229  -0.998 
+## 5     1 systo… age   age      0.593    0.0618     9.60  7.31e-20  0.593   0.472 
+## 6     1 systo… CFHr… CFHr…   -0.465    1.16      -0.402 6.88e- 1 -0.465  -2.74  
+## 7     1 diast… age   age      0.194    0.0410     4.73  3.13e- 6  0.194   0.113 
+## 8     1 diast… CFHr… CFHr…   -1.09     0.711     -1.53  1.26e- 1 -1.09   -2.49  
+## # … with 2 more variables: coef.high &lt;dbl&gt;, N &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or two subgroup analysis</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>reg_6<span class="ot">&lt;-</span><span class="fu">reg</span>(<span class="at">data =</span> diabetes, <span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>,<span class="st">&quot;CFHrs1061170&quot;</span>), <span class="at">y =</span><span class="fu">c</span>(<span class="st">&quot;systolic&quot;</span>,<span class="st">&quot;diastolic&quot;</span>) ,<span class="at">cov=</span><span class="fu">c</span>(<span class="st">&quot;CFBrs641153&quot;</span>,<span class="st">&quot;CFHrs2230199&quot;</span>), <span class="at">model =</span> <span class="st">&#39;lm&#39;</span>,<span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>,<span class="st">&quot;smoking&quot;</span>))</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>reg_6</span></code></pre></div>
-<pre><code>##      group level         y            x         term    estimate  std.error   statistic      p.value        coef    coef.low coef.high   N
-## 1      sex     0  systolic          age          age  0.64773257 0.05076473 12.75949920 6.063847e-33  0.64773257  0.54802193 0.7474432 569
-## 2      sex     0  systolic CFHrs1061170 CFHrs1061170  1.14409524 1.05733099  1.08205968 2.796876e-01  1.14409524 -0.93268422 3.2208747 569
-## 3      sex     0 diastolic          age          age  0.13034768 0.03356128  3.88387043 1.149692e-04  0.13034768  0.06442756 0.1962678 569
-## 4      sex     0 diastolic CFHrs1061170 CFHrs1061170  0.22861690 0.62463113  0.36600306 7.144998e-01  0.22861690 -0.99826579 1.4554996 569
-## 5      sex     1  systolic          age          age  0.59306788 0.06179047  9.59804724 7.305923e-20  0.59306788  0.47161244 0.7145233 426
-## 6      sex     1  systolic CFHrs1061170 CFHrs1061170 -0.46512605 1.15629722 -0.40225475 6.877002e-01 -0.46512605 -2.73794544 1.8076933 426
-## 7      sex     1 diastolic          age          age  0.19371219 0.04099307  4.72548612 3.132224e-06  0.19371219  0.11313616 0.2742882 426
-## 8      sex     1 diastolic CFHrs1061170 CFHrs1061170 -1.08988936 0.71130615 -1.53223665 1.262133e-01 -1.08988936 -2.48803370 0.3082550 426
-## 9  smoking     0  systolic          age          age  0.56709310 0.05775625  9.81873047 9.527853e-21  0.56709310  0.45358764 0.6805986 454
-## 10 smoking     0  systolic CFHrs1061170 CFHrs1061170  0.09315881 1.09475817  0.08509533 9.322234e-01  0.09315881 -2.05831432 2.2446319 454
-## 11 smoking     0 diastolic          age          age  0.12266643 0.03938756  3.11434456 1.961246e-03  0.12266643  0.04526004 0.2000728 454
-## 12 smoking     0 diastolic CFHrs1061170 CFHrs1061170  0.34433728 0.68460209  0.50297434 6.152284e-01  0.34433728 -1.00107674 1.6897513 454
-## 13 smoking     1  systolic          age          age  0.70147846 0.05756805 12.18520429 8.091810e-30  0.70147846  0.58835143 0.8146055 467
-## 14 smoking     1  systolic CFHrs1061170 CFHrs1061170  0.48555084 1.21375126  0.40004147 6.893105e-01  0.48555084 -1.89959281 2.8706945 467
-## 15 smoking     1 diastolic          age          age  0.19687617 0.03742561  5.26046659 2.200772e-07  0.19687617  0.12333107 0.2704213 467
-## 16 smoking     1 diastolic CFHrs1061170 CFHrs1061170 -0.97263707 0.70551713 -1.37861582 1.686790e-01 -0.97263707 -2.35904940 0.4137752 467
-## 17 smoking    NA  systolic          age          age  0.53068925 0.14994046  3.53933329 7.175890e-04  0.53068925  0.23164244 0.8297361  74
-## 18 smoking    NA  systolic CFHrs1061170 CFHrs1061170  2.87081804 2.97945574  0.96353774 3.385946e-01  2.87081804 -3.07151907 8.8131551  74
-## 19 smoking    NA diastolic          age          age  0.10466712 0.09433926  1.10947570 2.710221e-01  0.10466712 -0.08348661 0.2928208  74
-## 20 smoking    NA diastolic CFHrs1061170 CFHrs1061170 -0.23489246 1.75288157 -0.13400361 8.937842e-01 -0.23489246 -3.73090451 3.2611196  74</code></pre>
+<pre><code>##      group level         y            x         term    estimate  std.error
+## 1      sex     0  systolic          age          age  0.64773257 0.05076473
+## 2      sex     0  systolic CFHrs1061170 CFHrs1061170  1.14409524 1.05733099
+## 3      sex     0 diastolic          age          age  0.13034768 0.03356128
+## 4      sex     0 diastolic CFHrs1061170 CFHrs1061170  0.22861690 0.62463113
+## 5      sex     1  systolic          age          age  0.59306788 0.06179047
+## 6      sex     1  systolic CFHrs1061170 CFHrs1061170 -0.46512605 1.15629722
+## 7      sex     1 diastolic          age          age  0.19371219 0.04099307
+## 8      sex     1 diastolic CFHrs1061170 CFHrs1061170 -1.08988936 0.71130615
+## 9  smoking     0  systolic          age          age  0.56709310 0.05775625
+## 10 smoking     0  systolic CFHrs1061170 CFHrs1061170  0.09315881 1.09475817
+## 11 smoking     0 diastolic          age          age  0.12266643 0.03938756
+## 12 smoking     0 diastolic CFHrs1061170 CFHrs1061170  0.34433728 0.68460209
+## 13 smoking     1  systolic          age          age  0.70147846 0.05756805
+## 14 smoking     1  systolic CFHrs1061170 CFHrs1061170  0.48555084 1.21375126
+## 15 smoking     1 diastolic          age          age  0.19687617 0.03742561
+## 16 smoking     1 diastolic CFHrs1061170 CFHrs1061170 -0.97263707 0.70551713
+## 17 smoking    NA  systolic          age          age  0.53068925 0.14994046
+## 18 smoking    NA  systolic CFHrs1061170 CFHrs1061170  2.87081804 2.97945574
+## 19 smoking    NA diastolic          age          age  0.10466712 0.09433926
+## 20 smoking    NA diastolic CFHrs1061170 CFHrs1061170 -0.23489246 1.75288157
+##      statistic      p.value        coef    coef.low coef.high   N
+## 1  12.75949920 6.063847e-33  0.64773257  0.54802193 0.7474432 569
+## 2   1.08205968 2.796876e-01  1.14409524 -0.93268422 3.2208747 569
+## 3   3.88387043 1.149692e-04  0.13034768  0.06442756 0.1962678 569
+## 4   0.36600306 7.144998e-01  0.22861690 -0.99826579 1.4554996 569
+## 5   9.59804724 7.305923e-20  0.59306788  0.47161244 0.7145233 426
+## 6  -0.40225475 6.877002e-01 -0.46512605 -2.73794544 1.8076933 426
+## 7   4.72548612 3.132224e-06  0.19371219  0.11313616 0.2742882 426
+## 8  -1.53223665 1.262133e-01 -1.08988936 -2.48803370 0.3082550 426
+## 9   9.81873047 9.527853e-21  0.56709310  0.45358764 0.6805986 454
+## 10  0.08509533 9.322234e-01  0.09315881 -2.05831432 2.2446319 454
+## 11  3.11434456 1.961246e-03  0.12266643  0.04526004 0.2000728 454
+## 12  0.50297434 6.152284e-01  0.34433728 -1.00107674 1.6897513 454
+## 13 12.18520429 8.091810e-30  0.70147846  0.58835143 0.8146055 467
+## 14  0.40004147 6.893105e-01  0.48555084 -1.89959281 2.8706945 467
+## 15  5.26046659 2.200772e-07  0.19687617  0.12333107 0.2704213 467
+## 16 -1.37861582 1.686790e-01 -0.97263707 -2.35904940 0.4137752 467
+## 17  3.53933329 7.175890e-04  0.53068925  0.23164244 0.8297361  74
+## 18  0.96353774 3.385946e-01  2.87081804 -3.07151907 8.8131551  74
+## 19  1.10947570 2.710221e-01  0.10466712 -0.08348661 0.2928208  74
+## 20 -0.13400361 8.937842e-01 -0.23489246 -3.73090451 3.2611196  74</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or subgroup combination analysis</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>reg_7<span class="ot">&lt;-</span><span class="fu">reg</span>(<span class="at">data =</span> diabetes, <span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>,<span class="st">&quot;CFHrs1061170&quot;</span>), <span class="at">y =</span><span class="fu">c</span>(<span class="st">&quot;systolic&quot;</span>,<span class="st">&quot;diastolic&quot;</span>) ,<span class="at">cov=</span><span class="fu">c</span>(<span class="st">&quot;CFBrs641153&quot;</span>,<span class="st">&quot;CFHrs2230199&quot;</span>), <span class="at">model =</span> <span class="st">&#39;lm&#39;</span>,<span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>,<span class="st">&quot;smoking&quot;</span>),<span class="at">group_combine =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>reg_7</span></code></pre></div>
 <pre><code>## # A tibble: 24 × 13
-##      sex smoking y         x            term         estimate std.error statistic  p.value    coef coef.low coef.high     N
-##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1     0       0 systolic  age          age            0.566     0.0730    7.74   2.30e-13  0.566    0.422      0.710   258
-##  2     0       0 systolic  CFHrs1061170 CFHrs1061170   0.0370    1.40      0.0265 9.79e- 1  0.0370  -2.71       2.79    258
-##  3     0       0 diastolic age          age            0.0525    0.0515    1.02   3.09e- 1  0.0525  -0.0488     0.154   258
-##  4     0       0 diastolic CFHrs1061170 CFHrs1061170   0.0128    0.886     0.0144 9.89e- 1  0.0128  -1.73       1.76    258
-##  5     0       1 systolic  age          age            0.706     0.0759    9.30   5.64e-18  0.706    0.557      0.856   267
-##  6     0       1 systolic  CFHrs1061170 CFHrs1061170   2.03      1.69      1.20   2.32e- 1  2.03    -1.31       5.36    267
-##  7     0       1 diastolic age          age            0.206     0.0481    4.28   2.62e- 5  0.206    0.111      0.301   267
-##  8     0       1 diastolic CFHrs1061170 CFHrs1061170   0.428     0.964     0.444  6.58e- 1  0.428   -1.47       2.33    267
-##  9     0      NA systolic  age          age            0.819     0.201     4.07   2.14e- 4  0.819    0.413      1.23     44
-## 10     0      NA systolic  CFHrs1061170 CFHrs1061170   2.32      4.56      0.508  6.14e- 1  2.32    -6.90      11.5      44
-## 11     0      NA diastolic age          age            0.129     0.126     1.02   3.14e- 1  0.129   -0.127      0.385    44
-## 12     0      NA diastolic CFHrs1061170 CFHrs1061170  -0.178     2.45     -0.0726 9.43e- 1 -0.178   -5.13       4.77     44
-## 13     1       0 systolic  age          age            0.580     0.0938    6.18   3.68e- 9  0.580    0.395      0.765   196
-## 14     1       0 systolic  CFHrs1061170 CFHrs1061170  -0.113     1.77     -0.0639 9.49e- 1 -0.113   -3.61       3.38    196
-## 15     1       0 diastolic age          age            0.228     0.0604    3.77   2.18e- 4  0.228    0.109      0.347   196
-## 16     1       0 diastolic CFHrs1061170 CFHrs1061170   0.578     1.08      0.535  5.94e- 1  0.578   -1.55       2.71    196
-## 17     1       1 systolic  age          age            0.693     0.0895    7.74   5.14e-13  0.693    0.516      0.869   200
-## 18     1       1 systolic  CFHrs1061170 CFHrs1061170  -1.14      1.72     -0.664  5.08e- 1 -1.14    -4.54       2.25    200
-## 19     1       1 diastolic age          age            0.182     0.0606    3.00   3.06e- 3  0.182    0.0622     0.301   200
-## 20     1       1 diastolic CFHrs1061170 CFHrs1061170  -2.59      1.03     -2.52   1.27e- 2 -2.59    -4.62      -0.559   200
-## 21     1      NA systolic  age          age            0.133     0.188     0.705  4.87e- 1  0.133   -0.254      0.519    30
-## 22     1      NA systolic  CFHrs1061170 CFHrs1061170   2.91      3.01      0.967  3.42e- 1  2.91    -3.28       9.10     30
-## 23     1      NA diastolic age          age            0.0596    0.137     0.436  6.66e- 1  0.0596  -0.221      0.340    30
-## 24     1      NA diastolic CFHrs1061170 CFHrs1061170  -0.739     2.21     -0.335  7.40e- 1 -0.739   -5.27       3.80     30</code></pre>
+##      sex smoking y      x     term  estimate std.error statistic  p.value   coef
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+##  1     0       0 systo… age   age     0.566     0.0730    7.74   2.30e-13 0.566 
+##  2     0       0 systo… CFHr… CFHr…   0.0370    1.40      0.0265 9.79e- 1 0.0370
+##  3     0       0 diast… age   age     0.0525    0.0515    1.02   3.09e- 1 0.0525
+##  4     0       0 diast… CFHr… CFHr…   0.0128    0.886     0.0144 9.89e- 1 0.0128
+##  5     0       1 systo… age   age     0.706     0.0759    9.30   5.64e-18 0.706 
+##  6     0       1 systo… CFHr… CFHr…   2.03      1.69      1.20   2.32e- 1 2.03  
+##  7     0       1 diast… age   age     0.206     0.0481    4.28   2.62e- 5 0.206 
+##  8     0       1 diast… CFHr… CFHr…   0.428     0.964     0.444  6.58e- 1 0.428 
+##  9     0      NA systo… age   age     0.819     0.201     4.07   2.14e- 4 0.819 
+## 10     0      NA systo… CFHr… CFHr…   2.32      4.56      0.508  6.14e- 1 2.32  
+## # … with 14 more rows, and 3 more variables: coef.low &lt;dbl&gt;, coef.high &lt;dbl&gt;,
+## #   N &lt;dbl&gt;</code></pre>
 </div>
 <div id="plot-these-regression-models" class="section level2">
 <h2>Plot these regression models</h2>
