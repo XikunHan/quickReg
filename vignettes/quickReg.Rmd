@@ -20,12 +20,6 @@ The `quickReg` package provide a set of functions to display and pry a dataset. 
 The example data is a toy dataset extracting from package  [PredictABEL](https://link.springer.com/article/10.1007/s10654-011-9567-4) only to be used to demonstrate the main idea of the package.
 
 
-```{r set, echo=FALSE}
-# Change the width of html file
-options(width = 150,tibble.print_max=50)
-
-```
-
 
 ```{r data}
 
@@ -33,7 +27,7 @@ options(width = 150,tibble.print_max=50)
 
 # install.packages("quickReg")
 
-# devtools::install_github("XikunHan/quickReg")
+# devtools::install_github("XikunHan/quickReg", build_vignettes = TRUE)
 
 library(quickReg)
 library(ggplot2)

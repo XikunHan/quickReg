@@ -15,7 +15,7 @@ The example data is a toy dataset extracting from package  [PredictABEL](https:/
 
 # install.packages("quickReg")
 
-# devtools::install_github("XikunHan/quickReg")
+# devtools::install_github("XikunHan/quickReg", build_vignettes = TRUE)
 
 library(quickReg)
 library(ggplot2)
