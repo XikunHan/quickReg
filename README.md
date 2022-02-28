@@ -2,20 +2,20 @@
 A manual to show the R package `quickReg`.
 
 ## Introduction
-The `quickReg` package provide a set of functions to display and pry a dataset. More precisely, the package can display statistical descriptions for a dataset, build regression models for lm, glm and cox regressions based on specified independent variables. The package also provides several seamless functions to visualize the regression results. Some examples are shown below.
+The `quickReg` package provide a set of functions to display and pry a dataset. More precisely, the package can display statistical descriptions for a dataset, build regression models for lm, glm, and cox regressions based on specified independent variables. The package also provides functions to visualize the regression results. Some examples are shown below:
 
 
 ## Getting started
 The example data is a toy dataset extracting from package  [PredictABEL](https://link.springer.com/article/10.1007/s10654-011-9567-4) only to be used to demonstrate the main idea of the package.
 
 
-```{r data}
+```r
 
 # download it from cran or github
 
-# install.packages("quickReg")
+install.packages("quickReg")
 
-# devtools::install_github("XikunHan/quickReg", build_vignettes = TRUE)
+devtools::install_github("XikunHan/quickReg", build_vignettes = TRUE)
 
 library(quickReg)
 library(ggplot2)
@@ -34,7 +34,7 @@ head(diabetes)
 
 Functions **display_table** or **display_table_group** can be used to show statistical descriptions of the dataset.
 
-```{r display}
+```r
 
 display_1<-display_table(data=diabetes,variables=c("age","smoking","education"),group="CFHrs2230199")
 display_1
@@ -59,7 +59,7 @@ display_4
 
 ## Build regression models
 
-```{r quickReg}
+```r
 
 # Apply univariate regression models
 
@@ -105,7 +105,7 @@ reg_7
 ## Plot these regression models
 
 
-```{r plot,fig.width=8,fig.height=5}
+```r
 plot(reg_1)
 
 # if the OR value is very large, we can set a limit
